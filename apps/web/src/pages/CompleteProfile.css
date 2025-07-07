@@ -1,0 +1,76 @@
+.complete-profile {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 24px;
+  background: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.complete-profile h2 {
+  font-size: 1.8rem;
+  margin-bottom: 12px;
+}
+
+.complete-profile label {
+  font-weight: 600;
+  margin-top: 12px;
+}
+
+.complete-profile input,
+.complete-profile textarea {
+  padding: 10px 12px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+}
+
+.complete-profile textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.interest-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag {
+  background-color: #d0ebff;
+  color: #004085;
+  padding: 6px 10px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+}
+
+.remove {
+  background: none;
+  border: none;
+  color: #004085;
+  margin-left: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.save-button {
+  margin-top: 16px;
+  padding: 12px;
+  font-size: 1rem;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.save-button:hover {
+  background-color: #45a049;
+}
