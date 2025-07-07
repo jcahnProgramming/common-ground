@@ -1,13 +1,13 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import path from 'path'
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import path from "path";
 
-// https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      supabase: path.resolve(__dirname, '../../packages/supabase')
+      "@": path.resolve(__dirname, "apps/web/src"),
+      "@supabase": path.resolve(__dirname, "packages/supabase")
     }
   }
-})
+});
