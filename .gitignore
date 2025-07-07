@@ -1,0 +1,48 @@
+# Node
+node_modules/
+pnpm-lock.yaml
+
+# Builds
+dist/
+build/
+*.log
+
+# Environments
+.env
+.env.local
+.env.*.local
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Vite
+.vite/
+
+# Expo (React Native)
+.expo/
+.expo-shared/
+android/
+ios/
+web-build/
+*.tar.gz
+
+# VSCode settings (optional)
+.vscode/
+
+# Mac Trash
+.Trashes
+
+# Expo metadata + cache
+*.expo
+*.expo-shared
+
+# React Native (Metro)
+__generated__/
+coverage/
+
+# IDE cache
+.idea/
+*.swp
+*.swo
+*.bak
