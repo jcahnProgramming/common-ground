@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { supabase } from "../../../../packages/supabase/client";
 import { useAuth } from "../components/AuthProvider";
+import FriendButton from "../components/FriendButton";
 import "./UserProfile.css";
 
 interface UserData {
@@ -11,8 +12,8 @@ interface UserData {
   username: string | null;
   bio: string | null;
   interests: string[] | null;
-  groups: string[]; // Placeholder for future
-  images: string[]; // Placeholder for future
+  groups: string[];
+  images: string[];
   feed: { text: string; isPublic: boolean }[];
 }
 
@@ -22,7 +23,7 @@ const UserProfile: React.FC = () => {
 
   const [profile, setProfile] = useState<UserData | null>(null);
   const [loading, setLoading] = useState(true);
-  const [isFriend, setIsFriend] = useState(false); // Placeholder logic
+  const [isFriend, setIsFriend] = useState(false); // Placeholder until real logic
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -35,7 +36,7 @@ const UserProfile: React.FC = () => {
       if (!error && data) {
         setProfile({
           ...data,
-          groups: ["Group One", "Group Two"], // Placeholder
+          groups: ["Group One", "Group Two"],
           images: [
             "https://via.placeholder.com/150",
             "https://via.placeholder.com/150/aaa",
@@ -75,7 +76,9 @@ const UserProfile: React.FC = () => {
           <h2>{profile.username || profile.email.split("@")[0]}</h2>
           {profile.bio && <p className="bio">{profile.bio}</p>}
         </div>
-        {!isSelf && <button className="add-friend">Add Friend</button>}
+
+        {/* ✅ Friend logic handled by smart component */}
+        {!isSelf && <FriendButton profileId={profile.id} />}
       </div>
 
       {profile.interests?.length ? (
