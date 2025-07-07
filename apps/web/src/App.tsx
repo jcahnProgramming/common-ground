@@ -8,6 +8,8 @@ import CompleteProfile from "./pages/CompleteProfile";
 import Settings from "./pages/Settings";
 import UserProfile from "./pages/UserProfile";
 import FriendsDashboard from "./pages/FriendsDashboard";
+import MyFeed from "./pages/MyFeed";              // ✅ added
+import FriendsFeed from "./pages/FriendsFeed";    // ✅ added
 import { useAuth } from "./components/AuthProvider";
 import Navbar from "./components/Navbar";
 
@@ -39,10 +41,8 @@ export default function App() {
         <Route path="/settings" element={<Settings />} />
         <Route path="/friends" element={<FriendsDashboard />} />
         <Route path="/user/:id" element={<UserProfile />} />
-
-        {/* Placeholder Routes */}
-        <Route path="/feed" element={<div style={{ padding: 24 }}>📄 My Feed</div>} />
-        <Route path="/friends-feed" element={<div style={{ padding: 24 }}>📄 Friends Feed</div>} />
+        <Route path="/feed" element={<MyFeed />} />             {/* ✅ My Feed */}
+        <Route path="/friends-feed" element={<FriendsFeed />} /> {/* ✅ Friends Feed */}
         <Route path="/messages" element={<div style={{ padding: 24 }}>💬 In-App Messaging</div>} />
       </Routes>
     </>

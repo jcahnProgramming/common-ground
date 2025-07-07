@@ -4,6 +4,7 @@ import { supabase } from "../../../../packages/supabase/client";
 import { useAuth } from "../components/AuthProvider";
 import { useNavigate } from "react-router-dom";
 import "./CompleteProfile.css";
+import { updateBuckets } from "@/utils/updateBuckets";
 
 const CompleteProfile: React.FC = () => {
   const { user } = useAuth();
@@ -38,6 +39,7 @@ const CompleteProfile: React.FC = () => {
       console.error("🔥 Supabase update error:", error);
       alert("Failed to update profile.");
     } else {
+      await updateBuckets({ user_id: session.user.id, access_token: session.access_token });
       console.log("✅ Profile updated");
       navigate("/dashboard");
     }

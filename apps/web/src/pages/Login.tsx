@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../../../../packages/supabase/client";
+import { updateBuckets } from "@/utils/updateBuckets";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -22,6 +23,8 @@ export default function Login() {
       setErrorMsg("Invalid credentials. Please try again.");
     } else {
       navigate("/dashboard");
+      const { user, access_token } = session;
+      await updateBuckets({ user_id: user.id, access_token});
     }
   };
 

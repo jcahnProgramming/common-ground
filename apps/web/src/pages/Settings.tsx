@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { supabase } from "../../../../packages/supabase/client";
 import { useAuth } from "../components/AuthProvider";
+import { updateBuckets } from "@/utils/updateBuckets"; // ✅ import added
 import "./Settings.css";
 
 const Settings: React.FC = () => {
-  const { user } = useAuth();
+  const { user, session } = useAuth(); // ✅ assume session is accessible
   const [bio, setBio] = useState("");
   const [interests, setInterests] = useState<string[]>([]);
   const [interestInput, setInterestInput] = useState("");
@@ -55,7 +56,16 @@ const Settings: React.FC = () => {
       console.error(error);
     } else {
       alert("Profile updated.");
+
+      // ✅ Update buckets after saving new interests
+      if (session?.access_token) {
+        await updateBuckets({
+          user_id: user.id,
+          access_token: session.access_token,
+        });
+      }
     }
+
     setSaving(false);
   };
 
