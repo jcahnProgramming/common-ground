@@ -6,8 +6,8 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "apps/web/src"),
-      "@supabase": path.resolve(__dirname, "packages/supabase")
+      "@": path.resolve(__dirname, "./src"),
+      "@supabase": path.resolve(__dirname, "../../packages/supabase")
     }
   }
 });

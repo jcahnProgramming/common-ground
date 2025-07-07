@@ -1,6 +1,6 @@
 // src/components/PostForm.tsx
 import React, { useState } from "react";
-import { supabase } from "@/../packages/supabase/client";
+import { supabase } from "@supabase/client";
 import { useAuth } from "../components/AuthProvider";
 
 const PostForm: React.FC<{ onPostCreated?: () => void }> = ({ onPostCreated }) => {

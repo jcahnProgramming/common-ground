@@ -1,5 +1,5 @@
 // packages/supabase/client.ts
-import { createClient } from "@supabase/supabase-js";
+import { createClient } from "https://esm.sh/@supabase/supabase-js";
 import { getEnv } from "./getEnv";
 
 const isWeb = typeof window !== "undefined";

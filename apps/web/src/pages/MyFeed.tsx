@@ -1,6 +1,6 @@
 // src/pages/MyFeed.tsx
 import React, { useEffect, useState } from "react";
-import { supabase } from "../../../packages/supabase/client";
+import { supabase } from "@supabase/client";
 import { useAuth } from "../components/AuthProvider";
 import FeedList from "../components/FeedList";
 import PostForm from "../components/PostForm";
