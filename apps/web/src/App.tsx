@@ -7,6 +7,7 @@ import Dashboard from "./pages/Dashboard";
 import CompleteProfile from "./pages/CompleteProfile";
 import Settings from "./pages/Settings";
 import UserProfile from "./pages/UserProfile";
+import FriendsDashboard from "./pages/FriendsDashboard";
 import { useAuth } from "./components/AuthProvider";
 import Navbar from "./components/Navbar";
 
@@ -18,6 +19,7 @@ export default function App() {
     <>
       <Navbar />
       <Routes>
+        {/* Public & Auth Routes */}
         <Route path="/" element={<Home />} />
         <Route
           path="/login"
@@ -32,15 +34,16 @@ export default function App() {
           element={session ? <Dashboard /> : <Navigate to="/login" />}
         />
         <Route path="/complete-profile" element={<CompleteProfile />} />
+
+        {/* Profile & Social */}
         <Route path="/settings" element={<Settings />} />
+        <Route path="/friends" element={<FriendsDashboard />} />
         <Route path="/user/:id" element={<UserProfile />} />
 
-        {/* 🧪 Placeholder pages for nav links */}
+        {/* Placeholder Routes */}
         <Route path="/feed" element={<div style={{ padding: 24 }}>📄 My Feed</div>} />
         <Route path="/friends-feed" element={<div style={{ padding: 24 }}>📄 Friends Feed</div>} />
         <Route path="/messages" element={<div style={{ padding: 24 }}>💬 In-App Messaging</div>} />
-        <Route path="/friends" element={<div style={{ padding: 24 }}>👥 Friends List</div>} />
-        <Route path="/me" element={<div style={{ padding: 24 }}>🙋‍♂️ My Public Profile</div>} />
       </Routes>
     </>
   );
