@@ -9,5 +9,31 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "packageManager": "pnpm@10.12.4"
+  "packageManager": "pnpm@10.12.4",
+  "dependencies": {
+    "@babel/runtime": "^7.27.6",
+    "@supabase/auth-js": "^2.70.0",
+    "@supabase/functions-js": "^2.4.5",
+    "@supabase/node-fetch": "^2.6.13",
+    "@supabase/postgrest-js": "^1.21.0",
+    "@supabase/realtime-js": "^2.12.0",
+    "@supabase/storage-js": "^2.9.1",
+    "@supabase/supabase-js": "^2.50.3",
+    "babel-plugin-module-resolver": "^5.0.2",
+    "cross-fetch": "^4.1.0",
+    "expo-asset": "^11.1.7",
+    "expo-constants": "^17.1.7",
+    "expo-file-system": "^18.1.11",
+    "expo-modules-core": "^2.4.2",
+    "invariant": "^2.2.4",
+    "isows": "^1.0.7",
+    "react-native-gesture-handler": "^2.27.1",
+    "react-native-reanimated": "^3.18.0",
+    "react-native-safe-area-context": "^5.5.1",
+    "react-native-screens": "^4.11.1",
+    "react-native-svg": "^15.12.0",
+    "react-native-unimodules": "^0.14.10",
+    "react-native-web": "^0.20.0",
+    "whatwg-url-without-unicode": "8.0.0-3"
+  }
 }

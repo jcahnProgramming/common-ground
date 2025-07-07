@@ -1,13 +1,13 @@
 import { createClient } from '@supabase/supabase-js'
+import { getEnv } from './getEnv'
 
-const isWeb = typeof document !== 'undefined'
+const { url, anonKey } = getEnv()
 
-const url = isWeb
-  ? import.meta.env.VITE_SUPABASE_URL
-  : process.env.SUPABASE_URL
+// Custom fetch (optional, can fallback to global fetch in mobile)
+const supabase = createClient(url, anonKey, {
+  global: {
+    fetch: typeof fetch !== 'undefined' ? fetch : require('cross-fetch'),
+  },
+})
 
-const anonKey = isWeb
-  ? import.meta.env.VITE_SUPABASE_ANON_KEY
-  : process.env.SUPABASE_ANON_KEY
-
-export const supabase = createClient(url, anonKey)
+export { supabase }

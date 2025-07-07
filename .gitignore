@@ -46,3 +46,8 @@ coverage/
 *.swp
 *.swo
 *.bak
+
+# Extra Ignored Items
+apps/mobile/app.config.js
+apps/mobile/.env
+apps/mobile/secrets.json
