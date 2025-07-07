@@ -17,7 +17,7 @@ const Navbar: React.FC = () => {
     { label: "Friends Feed", path: "/friends-feed" },
     { label: "Messages", path: "/messages" },
     { label: "Friends", path: "/friends" },
-    { label: "My Profile", path: "/me" },
+    // ❌ Removed static My Profile path
   ];
 
   const handleLogout = async () => {
@@ -70,6 +70,16 @@ const Navbar: React.FC = () => {
               {label}
             </NavLink>
           ))}
+
+          {/* ✅ Dynamic My Profile link */}
+          {user && (
+            <NavLink
+              to={`/user/${user.id}`}
+              className={({ isActive }) => `nav-link ${isActive ? "active" : ""}`}
+            >
+              My Profile
+            </NavLink>
+          )}
         </div>
 
         {user && (

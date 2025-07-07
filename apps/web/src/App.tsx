@@ -6,6 +6,7 @@ import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import CompleteProfile from "./pages/CompleteProfile";
 import Settings from "./pages/Settings";
+import UserProfile from "./pages/UserProfile";
 import { useAuth } from "./components/AuthProvider";
 import Navbar from "./components/Navbar";
 
@@ -32,6 +33,7 @@ export default function App() {
         />
         <Route path="/complete-profile" element={<CompleteProfile />} />
         <Route path="/settings" element={<Settings />} />
+        <Route path="/user/:id" element={<UserProfile />} />
 
         {/* 🧪 Placeholder pages for nav links */}
         <Route path="/feed" element={<div style={{ padding: 24 }}>📄 My Feed</div>} />

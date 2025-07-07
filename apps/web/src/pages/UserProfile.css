@@ -1,0 +1,81 @@
+.user-profile {
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 24px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+}
+
+.add-friend {
+  margin-left: auto;
+  padding: 8px 12px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.interests .tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag {
+  background-color: #eee;
+  padding: 6px 10px;
+  border-radius: 14px;
+  font-size: 0.9rem;
+}
+
+.tag.shared {
+  background-color: #c8e6c9;
+  font-weight: bold;
+}
+
+.groups ul,
+.feed ul {
+  list-style: none;
+  padding: 0;
+}
+
+.groups li a {
+  color: #0077cc;
+  text-decoration: none;
+}
+
+.groups li a:hover {
+  text-decoration: underline;
+}
+
+.gallery .grid {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.gallery img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+.bio {
+  font-size: 1rem;
+  color: #444;
+  margin-top: 4px;
+  margin-bottom: 16px;
+  white-space: pre-wrap;
+}
