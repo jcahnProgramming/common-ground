@@ -1,3 +1,4 @@
+// src/pages/FriendsFeed.tsx
 import React, { useEffect, useState } from "react";
 import { supabase } from "@supabase/client";
 import { useAuth } from "../components/AuthProvider";
@@ -12,12 +13,18 @@ const FriendsFeed: React.FC = () => {
   const fetchFriendsFeed = async () => {
     if (!user) return;
 
-    // Step 1: Get all confirmed friends (both directions)
-    const { data: friends } = await supabase
+    // Step 1: Get all confirmed friends (mutual connections)
+    const { data: friends, error: friendErr } = await supabase
       .from("friends")
       .select("sender_id, receiver_id")
       .or(`sender_id.eq.${user.id},receiver_id.eq.${user.id}`)
       .eq("status", "accepted");
+
+    if (friendErr) {
+      console.error("❌ Failed to fetch friends:", friendErr);
+      setLoading(false);
+      return;
+    }
 
     const friendIds = new Set<string>();
 
@@ -26,12 +33,16 @@ const FriendsFeed: React.FC = () => {
       if (f.receiver_id !== user.id) friendIds.add(f.receiver_id);
     });
 
-    // Step 2: Fetch posts from those users
-    const { data: friendPosts } = await supabase
+    // Step 2: Fetch posts from friends
+    const { data: friendPosts, error: postErr } = await supabase
       .from("posts")
       .select("*")
-      .in("author_id", Array.from(friendIds))
+      .in("author_id", Array.from(friendIds).length > 0 ? Array.from(friendIds) : ["00000000-0000-0000-0000-000000000000"])
       .order("created_at", { ascending: false });
+
+    if (postErr) {
+      console.error("❌ Failed to fetch friend posts:", postErr);
+    }
 
     setPosts(friendPosts ?? []);
     setLoading(false);

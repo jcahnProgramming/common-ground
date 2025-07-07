@@ -13,25 +13,44 @@ const MyFeed: React.FC = () => {
   const fetchFeed = async () => {
     if (!user) return;
 
-    const { data: buckets } = await supabase
+    // Step 1: Get bucket IDs the user belongs to
+    const { data: buckets, error: bucketErr } = await supabase
       .from("bucket_members")
       .select("bucket_id")
       .eq("user_id", user.id);
 
+    if (bucketErr) {
+      console.error("Bucket fetch error:", bucketErr);
+      setLoading(false);
+      return;
+    }
+
     const bucketIds = buckets?.map((b) => b.bucket_id) ?? [];
 
-    const { data: sharedMembers } = await supabase
+    // Step 2: Get user IDs of others in the same buckets
+    const { data: sharedMembers, error: memberErr } = await supabase
       .from("bucket_members")
       .select("user_id")
       .in("bucket_id", bucketIds);
 
+    if (memberErr) {
+      console.error("Shared member fetch error:", memberErr);
+      setLoading(false);
+      return;
+    }
+
     const sharedUserIds = [...new Set(sharedMembers?.map((m) => m.user_id) ?? [])];
 
-    const { data: feedPosts } = await supabase
+    // Step 3: Fetch posts by users in shared buckets
+    const { data: feedPosts, error: postErr } = await supabase
       .from("posts")
       .select("*")
-      .in("author_id", sharedUserIds)
+      .in("author_id", sharedUserIds.length ? sharedUserIds : ["00000000-0000-0000-0000-000000000000"]) // avoid error on empty array
       .order("created_at", { ascending: false });
+
+    if (postErr) {
+      console.error("Post fetch error:", postErr);
+    }
 
     setPosts(feedPosts || []);
     setLoading(false);

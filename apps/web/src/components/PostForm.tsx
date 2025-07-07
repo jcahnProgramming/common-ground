@@ -1,42 +1,58 @@
-// src/components/PostForm.tsx
 import React, { useState } from "react";
 import { supabase } from "@supabase/client";
 import { useAuth } from "../components/AuthProvider";
+import "./PostForm.css";
 
-const PostForm: React.FC<{ onPostCreated?: () => void }> = ({ onPostCreated }) => {
+interface PostFormProps {
+  onPostCreated: () => void;
+}
+
+const PostForm: React.FC<PostFormProps> = ({ onPostCreated }) => {
   const { user } = useAuth();
   const [content, setContent] = useState("");
-  const [tagsInput, setTagsInput] = useState("");
-  const [isPublic, setIsPublic] = useState(true);
+  const [tags, setTags] = useState<string[]>([]);
+  const [tagInput, setTagInput] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handlePost = async () => {
-    if (!content.trim()) return alert("Post content cannot be empty.");
+  const handleTagInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const input = e.target.value;
+    if (input.includes(",")) {
+      const newTags = input
+        .split(",")
+        .map((t) => t.trim())
+        .filter((t) => t.length > 0);
+      setTags((prev) => [...prev, ...newTags]);
+      setTagInput("");
+    } else {
+      setTagInput(input);
+    }
+  };
+
+  const removeTag = (index: number) => {
+    setTags((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  const handleSubmit = async () => {
+    if (!content.trim()) return;
 
     setLoading(true);
-
-    const tags = tagsInput
-      .split(",")
-      .map((tag) => tag.trim().toLowerCase())
-      .filter((tag) => tag.length > 0);
-
     const { error } = await supabase.from("posts").insert([
       {
+        author_id: user?.id, // 🔁 fixed here
         content,
         tags,
-        is_public: isPublic,
-        author_id: user?.id,
+        visibility: "public",
       },
     ]);
 
     if (error) {
-      console.error(error);
-      alert("Failed to create post.");
+      alert("Failed to post.");
+      console.error("❌ Supabase error:", error);
     } else {
       setContent("");
-      setTagsInput("");
-      setIsPublic(true);
-      if (onPostCreated) onPostCreated();
+      setTags([]);
+      setTagInput("");
+      onPostCreated();
     }
 
     setLoading(false);
@@ -45,28 +61,29 @@ const PostForm: React.FC<{ onPostCreated?: () => void }> = ({ onPostCreated }) =
   return (
     <div className="post-form">
       <textarea
-        placeholder="What's on your mind?"
         value={content}
         onChange={(e) => setContent(e.target.value)}
+        placeholder="What's on your mind?"
+        rows={4}
       />
 
       <input
         type="text"
-        placeholder="Tags (comma separated, e.g. hiking, cooking)"
-        value={tagsInput}
-        onChange={(e) => setTagsInput(e.target.value)}
+        value={tagInput}
+        onChange={handleTagInput}
+        placeholder="Add tags (comma-separated)"
       />
 
-      <label style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
-        <input
-          type="checkbox"
-          checked={isPublic}
-          onChange={() => setIsPublic(!isPublic)}
-        />
-        Public post
-      </label>
+      <div className="tag-list">
+        {tags.map((tag, index) => (
+          <span key={index} className="tag">
+            {tag}
+            <button onClick={() => removeTag(index)}>×</button>
+          </span>
+        ))}
+      </div>
 
-      <button onClick={handlePost} disabled={loading}>
+      <button onClick={handleSubmit} disabled={loading || !content.trim()}>
         {loading ? "Posting..." : "Post"}
       </button>
     </div>
